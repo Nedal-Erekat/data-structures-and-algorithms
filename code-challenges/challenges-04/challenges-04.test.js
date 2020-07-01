@@ -24,6 +24,7 @@ let $ = createSnippetWithJQuery(`
 
 const generateSubmitButton = () => {
   // Solution code here...
+  $('<button>submit<button>').appendTo($("form"));
 }
 
 /* ------------------------------------------------------------------------------------------------
@@ -40,6 +41,9 @@ For example:
 
 const isNum = (input) => {
   // Solution code here...
+ let check=/[0-9]/g;
+ return check.test(input);
+
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -52,6 +56,8 @@ Return an array containing all the matches.
 
 const isCapitalized = (str) => {
   // Solution code here...
+  let check=/[A-Z]/g;
+  return str.match(check);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -62,6 +68,8 @@ Write a function named citiesAtoJ that takes in an array of city names and uses 
 
 const citiesAtoJ = (arr) => {
   // Solution code here...
+  let check=/^\b[A-J]*/;
+  return check.match(arr);
 };
 
 /* ------------------------------------------------------------------------------------------------
