@@ -9,16 +9,24 @@ a DELETE request to /things/1 should respond with status of 405
 any other route should return status of 404
 ------------------------------------------------------------------------------------------------ */
 const createServer = () => {
-  const express = require('express');
-  const app = express();
+    const express = require('express');
+    const app = express();
 
-  // solution code goes here ...
-
-  var server = app.listen(3000, function () {
-    var port = server.address().port;
-    console.log('Example app listening at port', port);
-  });
-  return server;
+    // solution code goes here ...
+    app.get('/', (req, res) => {
+        res.status(200);
+    })
+    app.delete('/things/1', (req, res) => {
+        res.status(405);
+    })
+    app.get('*', (req, res) => {
+        res.status(404);
+    })
+    var server = app.listen(3000, function () {
+        var port = server.address().port;
+        console.log('Example app listening at port', port);
+    });
+    return server;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -30,8 +38,21 @@ For example, ['apple', 'banana', 'MacGyver'] returns ['Apple', 'Banana', 'MacGyv
 ------------------------------------------------------------------------------------------------ */
 
 const toTitleCase = (arr) => {
-  // Solution code here...
-};
+    // Solution code here...
+    let newArr = [];
+    let regex = /\b([a-z])/;
+    arr.forEach(element => {
+        if(regex.test(element)){
+            let mod=element.replace(regex,(x)=>{
+                return x.toUpperCase();
+            })
+            newArr.push(mod);
+        }else{newArr.push(element)}
+    });
+  
+    return newArr
+
+}
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
@@ -44,68 +65,76 @@ For example, "Lando Calrisian - Boba Fett - Princess Amidala".
 ------------------------------------------------------------------------------------------------ */
 
 let starWarsData = [{
-  name: 'Luke Skywalker',
-  height: '172',
-  mass: '77',
-  hair_color: 'blond',
-  skin_color: 'fair',
-  eye_color: 'blue',
-  birth_year: '19BBY',
-  gender: 'male',
+    name: 'Luke Skywalker',
+    height: '172',
+    mass: '77',
+    hair_color: 'blond',
+    skin_color: 'fair',
+    eye_color: 'blue',
+    birth_year: '19BBY',
+    gender: 'male',
 },
 {
-  name: 'C-3PO',
-  height: '167',
-  mass: '75',
-  hair_color: 'n/a',
-  skin_color: 'gold',
-  eye_color: 'yellow',
-  birth_year: '112BBY',
-  gender: 'n/a'
+    name: 'C-3PO',
+    height: '167',
+    mass: '75',
+    hair_color: 'n/a',
+    skin_color: 'gold',
+    eye_color: 'yellow',
+    birth_year: '112BBY',
+    gender: 'n/a'
 },
 {
-  name: 'R2-D2',
-  height: '96',
-  mass: '32',
-  hair_color: 'n/a',
-  skin_color: 'white, blue',
-  eye_color: 'red',
-  birth_year: '33BBY',
-  gender: 'n/a'
+    name: 'R2-D2',
+    height: '96',
+    mass: '32',
+    hair_color: 'n/a',
+    skin_color: 'white, blue',
+    eye_color: 'red',
+    birth_year: '33BBY',
+    gender: 'n/a'
 },
 {
-  name: 'Darth Vader',
-  height: '202',
-  mass: '136',
-  hair_color: 'none',
-  skin_color: 'white',
-  eye_color: 'yellow',
-  birth_year: '41.9BBY',
-  gender: 'male'
+    name: 'Darth Vader',
+    height: '202',
+    mass: '136',
+    hair_color: 'none',
+    skin_color: 'white',
+    eye_color: 'yellow',
+    birth_year: '41.9BBY',
+    gender: 'male'
 },
 {
-  name: 'Leia Organa',
-  height: '150',
-  mass: '49',
-  hair_color: 'brown',
-  skin_color: 'light',
-  eye_color: 'brown',
-  birth_year: '19BBY',
-  gender: 'female'
+    name: 'Leia Organa',
+    height: '150',
+    mass: '49',
+    hair_color: 'brown',
+    skin_color: 'light',
+    eye_color: 'brown',
+    birth_year: '19BBY',
+    gender: 'female'
 },
 {
-  name: 'Pex Kylar',
-  height: '180',
-  mass: '190',
-  hair_color: 'orange',
-  skin_color: 'brown',
-  eye_color: 'none',
-  birth_year: '27BBY',
-  gender: 'n/a'
+    name: 'Pex Kylar',
+    height: '180',
+    mass: '190',
+    hair_color: 'orange',
+    skin_color: 'brown',
+    eye_color: 'none',
+    birth_year: '27BBY',
+    gender: 'n/a'
 }];
 
 let biggerThanLuke = (arr) => {
-  // Solution code here...
+    // Solution code here...
+    let allCha=[];
+    arr.forEach(element => {
+        if (parseInt(element.mass) > parseInt(starWarsData[0].mass)) {
+            allCha.push(element.name);
+        }
+    });
+    
+    return allCha.join(' - ');;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -123,7 +152,16 @@ This data could be sorted by name or price.
 ------------------------------------------------------------------------------------------------ */
 
 const sortBy = (property, arr) => {
-  // Solution code here...
+    // Solution code here...
+    arr.sort((a,b)=>{
+        if(a.property>b.property){
+            return 1;
+        }else if(a.property<b.property){
+            return -1;
+        }else{return 0};
+    })
+    return arr;
+
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -139,7 +177,7 @@ https://secure.com returns true because the URL is secure
 https:/missingslash.org returns false because the URL is malformed
 ------------------------------------------------------------------------------------------------ */
 const isSecure = (url) => {
-  // Solution code here...
+    // Solution code here...
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -162,7 +200,7 @@ Here is a sample board:
 ------------------------------------------------------------------------------------------------ */
 
 const detectTicTacToeWin = (board) => {
-  // Solution code here...
+    // Solution code here...
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -178,102 +216,102 @@ Run your tests from the console: jest challenge-14.test.js
 
 describe('Testing challenge 1', function () {
 
-  const request = require('supertest');
+    const request = require('supertest');
 
-  let server;
+    let server;
 
-  beforeEach(function () {
-    server = createServer();
-  });
+    beforeEach(function () {
+        server = createServer();
+    });
 
-  afterEach(function () {
-    server.close();
-  });
+    afterEach(function () {
+        server.close();
+    });
 
-  test('responds to /', function testSlash(done) {
-    request(server)
-      .get('/')
-      .expect(200, done);
-  });
+    test('responds to /', function testSlash(done) {
+        request(server)
+            .get('/')
+            .expect(200, done);
+    });
 
-  test('responds to /things/1', function testSlash(done) {
-    request(server)
-      .delete('/things/1')
-      .expect(405, done);
-  });
+    test('responds to /things/1', function testSlash(done) {
+        request(server)
+            .delete('/things/1')
+            .expect(405, done);
+    });
 
-  test('404 everything else', function testPath(done) {
-    request(server)
-      .get('/foo/bar')
-      .expect(404, done);
-  });
+    test('404 everything else', function testPath(done) {
+        request(server)
+            .get('/foo/bar')
+            .expect(404, done);
+    });
 });
 
 describe('Testing challenge 2', () => {
-  test('It should convert each word to title case', () => {
-    const words = ['apple', 'banana', 'MacGyver'];
-    expect(toTitleCase(words)).toStrictEqual(['Apple', 'Banana', 'MacGyver']);
+    test('It should convert each word to title case', () => {
+        const words = ['apple', 'banana', 'MacGyver'];
+        expect(toTitleCase(words)).toStrictEqual(['Apple', 'Banana', 'MacGyver']);
 
-    expect(toTitleCase([])).toStrictEqual([]);
-  });
+        expect(toTitleCase([])).toStrictEqual([]);
+    });
 });
 
 describe('Testing challenge 3', () => {
-  test('It should return only characters that are bigger than Luke', () => {
-    expect(biggerThanLuke(starWarsData)).toStrictEqual('Darth Vader - Pex Kylar');
-    expect(biggerThanLuke([])).toStrictEqual('');
-  });
+    test('It should return only characters that are bigger than Luke', () => {
+        expect(biggerThanLuke(starWarsData)).toStrictEqual('Darth Vader - Pex Kylar');
+        expect(biggerThanLuke([])).toStrictEqual('');
+    });
 });
 
 describe('Testing challenge 4', () => {
-  test('It should sort items by a price', () => {
+    test('It should sort items by a price', () => {
 
-    expect(sortBy('price', [
-      { name: 'Sweatshirt', price: 45 },
-      { name: 'Bookmark', price: 2.50 },
-      { name: 'Tote bag', price: 15 }
-    ])).toStrictEqual([
-      { name: 'Bookmark', price: 2.50 },
-      { name: 'Tote bag', price: 15 },
-      { name: 'Sweatshirt', price: 45 },
-    ]);
+        expect(sortBy('price', [
+            { name: 'Sweatshirt', price: 45 },
+            { name: 'Bookmark', price: 2.50 },
+            { name: 'Tote bag', price: 15 }
+        ])).toStrictEqual([
+            { name: 'Bookmark', price: 2.50 },
+            { name: 'Tote bag', price: 15 },
+            { name: 'Sweatshirt', price: 45 },
+        ]);
 
-  });
+    });
 
-  test('It should sort items by name', () => {
+    test('It should sort items by name', () => {
 
-    expect(sortBy('name', [
-      { name: 'Sweatshirt', price: 45 },
-      { name: 'Bookmark', price: 2.50 },
-      { name: 'Tote bag', price: 15 }
-    ])).toStrictEqual([
-      { name: 'Bookmark', price: 2.50 },
-      { name: 'Sweatshirt', price: 45 },
-      { name: 'Tote bag', price: 15 },
-    ]);
-  });
+        expect(sortBy('name', [
+            { name: 'Sweatshirt', price: 45 },
+            { name: 'Bookmark', price: 2.50 },
+            { name: 'Tote bag', price: 15 }
+        ])).toStrictEqual([
+            { name: 'Bookmark', price: 2.50 },
+            { name: 'Sweatshirt', price: 45 },
+            { name: 'Tote bag', price: 15 },
+        ]);
+    });
 });
 
 xdescribe('Testing challenge 5', () => {
-  test('It should check if url is https', () => {
+    test('It should check if url is https', () => {
 
-    expect(isSecure('http://www.insecure.com')).toBe(false);
-    expect(isSecure('https://secure.com')).toBe(true);
-    expect(isSecure('https:/missingslash.org')).toBe(false);
-  });
+        expect(isSecure('http://www.insecure.com')).toBe(false);
+        expect(isSecure('https://secure.com')).toBe(true);
+        expect(isSecure('https:/missingslash.org')).toBe(false);
+    });
 });
 
 xdescribe('Testing challenge 6', () => {
-  test('It should return true if there are three in a row', () => {
-    expect(detectTicTacToeWin([['X', '', 'O'], ['X', 'O', ''], ['X', 'O', 'X']])).toStrictEqual(true);
-    expect(detectTicTacToeWin([['O', '', 'X'], ['X', 'O', 'X'], ['X', '', 'O']])).toStrictEqual(true);
-  });
+    test('It should return true if there are three in a row', () => {
+        expect(detectTicTacToeWin([['X', '', 'O'], ['X', 'O', ''], ['X', 'O', 'X']])).toStrictEqual(true);
+        expect(detectTicTacToeWin([['O', '', 'X'], ['X', 'O', 'X'], ['X', '', 'O']])).toStrictEqual(true);
+    });
 
-  test('It should return false if there are not three in a row', () => {
-    expect(detectTicTacToeWin([['X', '', 'O'], ['O', 'O', ''], ['X', 'O', 'X']])).toStrictEqual(false);
-  });
+    test('It should return false if there are not three in a row', () => {
+        expect(detectTicTacToeWin([['X', '', 'O'], ['O', 'O', ''], ['X', 'O', 'X']])).toStrictEqual(false);
+    });
 
-  test('It should not treat empty 3 in row as winner', () => {
-    expect(detectTicTacToeWin([['', '', ''], ['O', 'O', ''], ['X', 'O', 'X']])).toEqual(false);
-  });
+    test('It should not treat empty 3 in row as winner', () => {
+        expect(detectTicTacToeWin([['', '', ''], ['O', 'O', ''], ['X', 'O', 'X']])).toEqual(false);
+    });
 });
